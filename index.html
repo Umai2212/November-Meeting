@@ -146,7 +146,49 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
 .menu-item.active .menu-num{ background: var(--headline); color: var(--bg); }
 .timeline td:first-child{ white-space:nowrap; color: var(--headline-light); font-weight:700; }
 @media (max-width: 900px){ #prevBtn{ left:120px; } .menu-btn span{ display:none; } }
+
+/* ===== Mobile ===== */
+@media (max-width: 900px){
+  .topnav{ padding:0 12px; gap:10px; }
+  .topnav .brand{ display:none; }
+  .dots{ flex:1; min-width:0; gap:5px; padding:4px 0; }
+  .dot{ width:24px; height:24px; font-size:10.5px; }
+  .dot.active{ width:24px; }
+  .slide{ padding:22px 16px 110px; }
+  .slide h1{ font-size:24px !important; }
+  .slide h1 span{ display:inline; }
+  .slide:first-child h1{ font-size:34px !important; }
+  .slide h2{ font-size:18px; }
+  .slide-sub{ font-size:13.5px !important; margin-bottom:14px; }
+  .eyebrow{ font-size:11px; }
+  .scroll-inner{ overflow:visible; padding-right:0; flex:none; }
+  .card-grid, .two-col, .scroll-inner div[style*="grid-template-columns"]{ grid-template-columns:1fr !important; }
+  .card{ padding:14px 14px; }
+  .card h3{ font-size:15px !important; }
+  .card p, .card li{ font-size:13px; }
+  table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; font-size:12px; }
+  th{ white-space:normal; min-width:70px; }
+  td{ min-width:70px; }
+  td:first-child, th:first-child{ min-width:120px; }
+  .callout{ font-size:12.5px; }
+  .nav-pill{ bottom:14px; padding:8px 10px; max-width:42%; font-size:16px; }
+  #prevBtn{ left:66px; } #nextBtn{ right:12px; }
+  .nav-pill-title{ font-size:11px; }
+  .menu-btn{ left:12px; bottom:14px; padding:10px 12px; }
+  .menu-btn span{ display:none; }
+  .menu-overlay{ padding:0 12px 76px; }
+  .menu-panel{ width:100%; max-height:70vh; }
+  .step-num{ width:30px; height:30px; font-size:13px; }
+  .road-weeks{ flex-direction:column; }
+}
+@media (max-width: 480px){
+  .nav-pill-text{ display:none; }
+  .nav-pill{ padding:10px 14px; }
+  #prevBtn{ left:66px; }
+  .slide h1{ font-size:22px !important; }
+}
 </style>
+</head>
 <body>
 
 <div class="topnav">
