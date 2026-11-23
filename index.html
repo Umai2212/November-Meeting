@@ -123,13 +123,44 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
   .road-line{ display:none; }
   .nav-pill{ max-width:150px; padding:8px 10px; }
 }
+
+/* Numbered dots */
+.dot{ width:22px; height:22px; border-radius:50%; background: var(--card-outline-bg); border:1px solid var(--border); color: var(--muted); font-size:10.5px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.dot:hover{ border-color: var(--headline); color:#fff; }
+.dot.active{ background: var(--headline); border-color: var(--headline); color: var(--bg); width:22px; border-radius:50%; }
+
+/* Slide menu */
+.menu-btn{ position:fixed; left:20px; bottom:22px; display:flex; align-items:center; gap:8px; padding:10px 16px; border-radius:12px; background: var(--card-solid-1); border:1px solid rgba(255,255,255,0.12); color:#fff; font-size:13px; font-weight:600; cursor:pointer; z-index:101; transition: all .2s ease; }
+.menu-btn i{ font-size:18px; }
+.menu-btn:hover{ background: var(--card-solid-2); border-color: var(--headline); }
+#prevBtn{ left:170px; }
+.menu-overlay{ position:fixed; inset:0; background: rgba(10,6,24,0.75); backdrop-filter: blur(4px); z-index:200; display:none; align-items:flex-end; justify-content:flex-start; padding:0 20px 80px; }
+.menu-overlay.open{ display:flex; }
+.menu-panel{ width:440px; max-width:100%; max-height:75vh; overflow-y:auto; background: var(--card-outline-bg); border:1px solid var(--border); border-radius:14px; padding:14px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.menu-panel h4{ font-family:'Playfair Display', serif; color: var(--headline-light); font-size:17px; padding:4px 8px 10px; display:flex; justify-content:space-between; align-items:center; }
+.menu-panel h4 i{ cursor:pointer; color: var(--muted); font-size:18px; }
+.menu-item{ display:flex; gap:12px; align-items:center; padding:8px 10px; border-radius:8px; cursor:pointer; font-size:13.5px; color: var(--body-text); }
+.menu-item:hover{ background: rgba(255,255,255,0.05); }
+.menu-item.active{ background: rgba(240,114,158,0.15); color:#fff; }
+.menu-num{ width:26px; height:26px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:11.5px; font-weight:700; background: var(--card-solid-1); color:#fff; }
+.menu-item.active .menu-num{ background: var(--headline); color: var(--bg); }
+.timeline td:first-child{ white-space:nowrap; color: var(--headline-light); font-weight:700; }
+@media (max-width: 900px){ #prevBtn{ left:120px; } .menu-btn span{ display:none; } }
 </style>
 <body>
 
 <div class="topnav">
   <div class="brand">ELITE IIT — Growth, Ads &amp; Team Plan</div>
   <div class="dots" id="dots"></div>
-  <div class="nav-label" id="navLabel">1 / 13</div>
+  <div class="nav-label" id="navLabel">1 / 16</div>
+</div>
+
+<div class="menu-btn" id="menuBtn"><i class="ti ti-layout-list"></i><span>All slides</span></div>
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-panel">
+    <h4>All slides <i class="ti ti-x" id="menuClose"></i></h4>
+    <div id="menuList"></div>
+  </div>
 </div>
 
 <div class="nav-pill" id="prevBtn">
@@ -142,22 +173,21 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
 </div>
 
 <div class="deck" id="deck">
-
-<!-- SLIDE 1: COVER -->
+<!-- SLIDE: COVER -->
 <section class="slide">
   <div style="flex:1; display:flex; flex-direction:column; justify-content:center; max-width:950px;">
     <div class="eyebrow">Management Review · November 2026</div>
     <h1 style="font-size:52px; line-height:1.1;">Elite IIT<br><span style="color:var(--headline);">Organic Growth, Ads &amp; Team Plan</span></h1>
     <p class="slide-sub" style="font-size:16.5px; margin-top:18px;">Problems holding back our leads, how we fix them, and what we need to get there.</p>
     <div style="display:flex; gap:10px; margin-top:24px; flex-wrap:wrap;">
-      <span class="src-badge src-gsc"><i class="ti ti-brand-google"></i> Search Console · Aug–Oct 2026</span>
-      <span class="src-badge src-manual"><i class="ti ti-users"></i> Leads Reports · Oct &amp; Nov 2026</span>
-      <span class="src-badge src-gsc"><i class="ti ti-ad"></i> Google Ads &amp; Meta Ads · Oct–Nov 2026</span>
+      <span class="src-badge src-gsc"><i class="ti ti-brand-google"></i> Search Console · Aug–Nov 2026</span>
+      <span class="src-badge src-manual"><i class="ti ti-users"></i> Leads Reports · Aug–Nov 2026</span>
+      <span class="src-badge src-gsc"><i class="ti ti-ad"></i> Google Ads &amp; Meta Ads · Aug–Nov 2026</span>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 2: PURPOSE -->
+<!-- SLIDE: PURPOSE -->
 <section class="slide">
   <div class="eyebrow">Section 01</div>
   <h1>Purpose of This Meeting</h1>
@@ -168,51 +198,136 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
     </div>
     <h2 style="margin-bottom:12px;">What we'll discuss today</h2>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Problems</h4><p>Lost leads, ads and the CA campaign, class 11–12 leads, competition from 5 sides, the content gap, guest posting</p></div></div>
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Problems</h4><p>Organic leads falling, lost leads, ads and the CA campaign, class 11–12 leads, competition from 5 sides, the content gap, guest posting</p></div></div>
       <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Solutions</h4><p>For each problem</p></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Where we stand today</h4><p>Traffic and leads as of October</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Where we stand today</h4><p>Traffic and leads, August to November</p></div></div>
       <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Expected outcomes</h4><p>If we act, and the cost of waiting</p></div></div>
       <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Decisions needed today</h4></div></div>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 3: PROBLEM - LEADS LOST -->
+
+<!-- SLIDE: ORGANIC LEADS FELL -->
 <section class="slide">
   <div class="eyebrow">Section 02 · Problem</div>
+  <span class="src-badge src-gsc">Search Console + Leads Reports</span>
+  <h1>Organic Leads Fell as Rankings Dropped</h1>
+  <div class="scroll-inner">
+    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom:16px;">
+      <div class="card card-solid">
+        <i class="ti ti-rocket icon"></i>
+        <h3>The rebuild worked</h3>
+        <ul style="padding-left:18px;">
+          <li>35+ course and branch pages rebuilt, 26 May – 2 Jul</li>
+          <li><b>August peak: ≈ 92 organic leads</b>, and 318 new searches entered Google's top 10</li>
+        </ul>
+      </div>
+      <div class="card card-outline">
+        <span class="tag red">Then SEO stopped</span>
+        <ul style="padding-left:18px; margin-top:10px;">
+          <li>From 5 Sep to mid-Oct, all time went to ads and landing pages <b>(next slide)</b></li>
+          <li>No rank-tracking tool, so the drops went unnoticed until November</li>
+        </ul>
+      </div>
+      <div class="card card-outline">
+        <span class="tag orange">Why SEO is never "done"</span>
+        <ul style="padding-left:18px; margin-top:10px;">
+          <li><b>Google rewards fresh pages.</b> Pages that stop being updated slowly lose position.</li>
+          <li><b>Competitors never stop.</b> They add content every month; if we stand still, they move ahead.</li>
+          <li><b>So SEO needs regular content work every month.</b> Today we don't have the people to do it.</li>
+        </ul>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns: 3fr 2fr; gap:16px;">
+      <div class="card card-outline">
+        <h3><i class="ti ti-trending-down" style="color:var(--red);"></i>&nbsp; Rankings dropped, and leads followed</h3>
+        <table class="compact">
+          <tr><th></th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th></tr>
+          <tr style="background:rgba(240,114,158,0.08);"><td><b>Organic leads (estimated)</b></td><td><span class="tag green">≈ 92</span></td><td><span class="tag red">≈ 33</span></td><td>≈ 44</td><td>≈ 40/month pace</td></tr>
+          <tr><td>Clicks from new people (non-brand, per 30 days)</td><td>129</td><td>95</td><td>71</td><td>52</td></tr>
+          <tr><td>Average position (lower is better)</td><td>8.97</td><td>8.31</td><td>9.04</td><td>9.65</td></tr>
+        </table>
+        <p class="small-note">Organic leads estimated as website leads minus Google Ads leads. Part of the drop is seasonal, but clicks from new people still fell 44% without seasonal exams.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div class="callout warn" style="margin-bottom:0;"><i class="ti ti-alert-triangle"></i><div><b>September, when SEO stopped, was our lowest month.</b> October recovered partly after the NEET and Navodaya updates.</div></div>
+        <div class="callout warn" style="margin-bottom:0;"><i class="ti ti-arrow-down"></i><div><b>Biggest losses (October):</b> "iit coaching in bangalore" 8.1 → 23.4 · "cet coaching in bangalore" 15 → 40</div></div>
+        <div class="callout info" style="margin-bottom:0;"><i class="ti ti-user"></i><div><b>One person can't run ads and keep SEO updated at the same time.</b></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE: WHERE OUR TIME WENT -->
+<section class="slide">
+  <div class="eyebrow">Section 03 · Problem</div>
+  <h1>Where Our Time Went (5 Sep – 12 Oct)</h1>
+  <p class="slide-sub">From 5 September to mid-October, ads and landing pages took all available time. No SEO page updates were possible.</p>
+  <div class="scroll-inner">
+    <div style="display:grid; grid-template-columns: 3fr 1fr; gap:20px;">
+      <div class="card card-outline">
+        <table class="compact timeline">
+          <tr><th>Date</th><th>Work done</th></tr>
+          <tr><td>5 Sep</td><td>CET ad landing page built</td></tr>
+          <tr><td>7 Sep</td><td>Google Ads restarted; Meta school tuition ads turned on</td></tr>
+          <tr><td>8 Sep</td><td>CET campaign built; Navodaya crash-course ad; fixed Meta ads bringing leads from outside Bangalore and teacher job seekers</td></tr>
+          <tr><td>9 Sep</td><td>CA/CS/CMA and PGCET campaigns built</td></tr>
+          <tr><td>10 Sep</td><td>CA, CS and CMA landing pages built; Navodaya campaign reworked after click cost jumped from ₹15 to ₹135</td></tr>
+          <tr><td>15–18 Sep</td><td>Navodaya 6-Day Booster Program: page, payment link, ads and video</td></tr>
+          <tr><td>18–19 Sep</td><td>School tuition campaign plus 4 landing pages (CBSE, ICSE, IGCSE, Tuitions)</td></tr>
+          <tr><td>23–24 Sep</td><td>Ads paused to fix ad setup and forms</td></tr>
+          <tr><td>2 Oct</td><td>Campaigns split into offline and online classes</td></tr>
+          <tr><td>10 Sep – 8 Oct</td><td>Fund top-ups needed on 13 days to keep ads running</td></tr>
+        </table>
+      </div>
+      <div class="card card-solid" style="align-self:start;">
+        <h3 style="font-size:18px;">Result</h3>
+        <ul style="padding-left:18px;">
+          <li><b>6 campaigns</b> and about <b>9 landing pages</b> in 5 weeks</li>
+          <li style="margin-top:6px;"><b>No SEO page updates</b> from 5 Sep until 15 Oct</li>
+          <li style="margin-top:6px;"><b>Rankings dropped in October</b>, and we only saw it in November</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE: PROBLEM - LEADS LOST -->
+<section class="slide">
+  <div class="eyebrow">Section 04 · Problem</div>
   <span class="src-badge src-manual">Leads Reports</span>
   <h1>Leads Get Lost, and We Can't Track Them</h1>
   <div class="scroll-inner">
-    <div class="two-col">
+    <div style="display:grid; grid-template-columns: 3fr 2fr; gap:20px;">
       <div class="card card-solid">
-        <h3 style="font-size:20px;">October: 37 leads got stuck with sales</h3>
-        <table style="margin-top:6px;">
-          <tr><td>Never picked up by anyone</td><td><b>16</b></td></tr>
-          <tr><td>Passed to a branch, no update since</td><td><b>10</b></td></tr>
-          <tr><td>Came in on forms, never posted to the group</td><td><b>5</b></td></tr>
-          <tr><td>Stuck "in progress"</td><td><b>3</b></td></tr>
+        <table>
+          <tr><th></th><th>August</th><th>October</th><th>November (to 23 Nov)</th></tr>
+          <tr><td><b>Total leads</b></td><td>125</td><td>209</td><td>127</td></tr>
+          <tr><td><b>Stuck with sales</b><br><span style="font-size:11px; opacity:.8;">never forwarded, claimed or updated</span></td><td><span class="tag red" style="font-size:12px;">56 (45%)</span></td><td>37 (18%)</td><td>18 (14%)</td></tr>
+          <tr><td><b>Can't be traced to any outcome</b></td><td>—</td><td>40 (19%)</td><td>50 (39%)</td></tr>
+          <tr><td><b>Admissions confirmed</b></td><td>2</td><td>1</td><td>2</td></tr>
         </table>
       </div>
       <div class="card card-outline">
-        <h3><i class="ti ti-calendar" style="color:var(--headline-light);"></i>&nbsp; November (1–20 Nov): the same problems continue</h3>
+        <h3><i class="ti ti-calendar" style="color:var(--headline-light);"></i>&nbsp; November</h3>
         <ul style="padding-left:18px;">
-          <li><b>14 leads</b> stuck or never shared</li>
-          <li>Leads are posted 6–8 at a time and replies don't say which lead they're about: <b>47 of 116 leads (41%) can't be traced to any outcome</b></li>
+          <li>Leads are posted to the group 6–8 at a time, and replies don't say which lead they're about: <b>50 of 127 leads (39%) can't be traced</b></li>
           <li>On 10 Nov, 8 leads got only 3 replies, so at least 5 were probably never called</li>
           <li>The same lead was claimed by two branches, twice</li>
         </ul>
       </div>
     </div>
     <div class="two-col" style="margin-top:16px;">
-      <div class="callout warn" style="margin-bottom:0;"><i class="ti ti-alert-triangle"></i><div>Only <b>a handful of admissions</b> are confirmed as fee-paid. "Converted" usually means a visit or demo.</div></div>
+      <div class="callout warn" style="margin-bottom:0;"><i class="ti ti-alert-triangle"></i><div>"Converted" usually means a <b>visit or demo</b>, not fees paid.</div></div>
       <div class="callout warn" style="margin-bottom:0;"><i class="ti ti-alert-triangle"></i><div>Our leads report <b>doesn't record which leads came from ads and which from organic</b>.</div></div>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 4: PROBLEM - ADS & CA -->
+<!-- SLIDE: PROBLEM - ADS & CA -->
 <section class="slide">
-  <div class="eyebrow">Section 03 · Problem</div>
+  <div class="eyebrow">Section 05 · Problem</div>
   <h1>Ads and the CA Campaign</h1>
   <div class="scroll-inner">
     <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
@@ -222,20 +337,23 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
         <ul style="padding-left:18px;">
           <li>Google can spend up to 2× a campaign's daily budget on a busy day (₹500 can become ₹1,000)</li>
           <li>All campaigns share one prepaid balance, so the strong campaign uses it up first</li>
-          <li>When the balance runs out, every campaign stops:
-            <ul style="padding-left:16px; margin-top:4px;">
-              <li><b>October:</b> Google Ads ran on only 17 of 31 days</li>
-              <li><b>15–19 Nov:</b> no FB leads at all, because the Meta campaigns showed a "payment error"</li>
-            </ul>
-          </li>
+          <li><b>When the balance runs out, every campaign stops.</b> Google Ads ran on only about half the days:</li>
+        </ul>
+        <table class="compact" style="margin-top:6px;">
+          <tr><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov (1–23)</th></tr>
+          <tr><td>19 of 31</td><td>14 of 30</td><td>17 of 31</td><td>15 of 23</td></tr>
+        </table>
+        <ul style="padding-left:18px; margin-top:8px;">
+          <li><b>15–19 Nov:</b> zero FB leads (Meta "payment error")</li>
         </ul>
       </div>
       <div class="card card-outline">
         <span class="tag red">Problem</span>
         <h3 style="margin-top:8px; font-size:17px;">FB ads are reaching the wrong parents</h3>
         <ul style="padding-left:18px;">
-          <li>In November, only <b>2 of 15</b> FB leads the team reached went well</li>
+          <li>In November, only <b>3 of 19</b> FB leads the team reached went well</li>
           <li>Most said they wanted <b>home tuition</b>, lived <b>too far</b>, or found the <b>fees too high</b></li>
+          <li>5 of 50 November FB leads were from outside Bangalore, and many more were far from all 4 branches</li>
         </ul>
       </div>
       <div class="card card-outline">
@@ -243,7 +361,6 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
         <h3 style="margin-top:8px; font-size:17px;">The CA campaign brings low or no leads</h3>
         <ul style="padding-left:18px;">
           <li>It gets little budget after the stronger campaigns have spent theirs</li>
-          <li>CA isn't on page 1 organically either</li>
           <li>Other possible causes: the landing page, strong competitors (ArivuPro, Yeshas), keyword settings, timing around CA exam registration</li>
         </ul>
       </div>
@@ -251,9 +368,9 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
   </div>
 </section>
 
-<!-- SLIDE 5: PROBLEM - 11-12 & COMPETITION -->
+<!-- SLIDE: PROBLEM - 11-12 & COMPETITION -->
 <section class="slide">
-  <div class="eyebrow">Section 04 · Problem</div>
+  <div class="eyebrow">Section 06 · Problem</div>
   <h1>Class 11–12 and Competition from 5 Sides</h1>
   <div class="scroll-inner">
     <div style="display:grid; grid-template-columns: 2fr 3fr; gap:24px;">
@@ -261,8 +378,9 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
         <span class="tag red">Problem</span>
         <h3 style="margin-top:8px; font-size:18px;">Class 11–12 brings low leads</h3>
         <ul style="padding-left:18px;">
-          <li>CET coaching dropped to page 2 in October</li>
-          <li>NEET ranks on pages 2–4, and IIT-JEE on page 2</li>
+          <li><b>IIT-JEE fell from page 1 to pages 2–3 in October</b></li>
+          <li><b>CET fell to page 4</b></li>
+          <li>NEET is improving but still on page 2</li>
           <li>There's no PU Commerce page</li>
           <li>No dedicated 11–12 ad campaign has run yet</li>
         </ul>
@@ -285,9 +403,9 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
   </div>
 </section>
 
-<!-- SLIDE 6: PROBLEM - GUEST POSTING -->
+<!-- SLIDE: PROBLEM - GUEST POSTING -->
 <section class="slide">
-  <div class="eyebrow">Section 05 · Problem</div>
+  <div class="eyebrow">Section 07 · Problem</div>
   <h1>Guest Posting Is Slow and Complicated</h1>
   <div class="scroll-inner">
     <div class="callout info" style="margin-bottom:16px;"><i class="ti ti-link"></i><div><b>What we want from it:</b> a <b>do-follow backlink</b>, which is a link from another website that Google counts as a vote for us. Many sites only give "nofollow" links, which carry little ranking value.</div></div>
@@ -315,9 +433,9 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
   </div>
 </section>
 
-<!-- SLIDE 7: SOLUTION - LEAD HANDLING -->
+<!-- SLIDE: SOLUTION - LEAD HANDLING -->
 <section class="slide">
-  <div class="eyebrow">Section 06 · Solution</div>
+  <div class="eyebrow">Section 08 · Solution</div>
   <h1>Lead Management App with AI WhatsApp</h1>
   <div class="scroll-inner">
     <div class="card-grid" style="grid-template-columns: repeat(5, 1fr); margin-bottom:16px;">
@@ -360,9 +478,9 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
   </div>
 </section>
 
-<!-- SLIDE 8: SOLUTIONS - ADS SEO GBP -->
+<!-- SLIDE: SOLUTIONS - ADS SEO GBP -->
 <section class="slide">
-  <div class="eyebrow">Section 07 · Solutions</div>
+  <div class="eyebrow">Section 09 · Solutions</div>
   <h1>Solutions: Ads, SEO and GBP</h1>
   <div class="scroll-inner">
     <div class="card-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom:16px;">
@@ -384,6 +502,7 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
           <li>Push keywords close to page 1: CET, CA, Banking, GATE, NDA</li>
           <li>Build missing pages: State board, IGCSE, PU Commerce, CLAT, CUET, KPTCL, Navodaya class 6/9</li>
           <li>30+ quality posts per category</li>
+          <li><b>Monthly content updates on every priority category</b>, not one-time rebuilds</li>
           <li>Backlinks from directories and selected guest posts</li>
         </ul>
       </div>
@@ -404,9 +523,29 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
   </div>
 </section>
 
+
+<!-- SLIDE: ONE PERSON VS TEAM -->
+<section class="slide">
+  <div class="eyebrow">Section 10 · Team</div>
+  <h1>What One Person Can Do vs. With a Team</h1>
+  <div class="scroll-inner">
+    <div class="card card-outline">
+      <table>
+        <tr><th>Work needed every month</th><th>Needed</th><th>Me alone</th><th>With 5 interns</th></tr>
+        <tr><td><b>Blog posts</b></td><td>30+ a month</td><td><span class="tag red">Up to 10</span> at full capacity</td><td><span class="tag green">30–35+</span> a month</td></tr>
+        <tr><td><b>GBP posts</b><br><span style="color:var(--muted); font-size:11px;">2 a week × 4 branches</span></td><td>≈ 35 a month</td><td><span class="tag red">Not possible</span> alongside everything else</td><td><span class="tag green">All 35</span>, plus reviews and photos</td></tr>
+        <tr><td><b>Ads optimisation</b></td><td>Regular, every week</td><td><span class="tag red">Not done properly today</span>: time goes to setup and fixes</td><td><span class="tag green">Weekly</span>: ads never stop and cost per lead falls</td></tr>
+        <tr><td><b>Guest posts and backlinks</b></td><td>Ongoing outreach</td><td><span class="tag red">Hardly any</span></td><td><span class="tag green">Regular</span> outreach every month</td></tr>
+      </table>
+    </div>
+    <div class="callout warn" style="margin-top:16px;"><i class="ti ti-users-group"></i><div><b>One person can't cover even a third of what's needed. With 5 interns, we cover all of it.</b></div></div>
+    <p class="small-note">Later, once this is running: we could also start on social media, which may bring additional leads over time.</p>
+  </div>
+</section>
+
 <!-- SLIDE: PROOF -->
 <section class="slide">
-  <div class="eyebrow">Section 08 · Proof</div>
+  <div class="eyebrow">Section 11 · Proof</div>
   <span class="src-badge src-gsc">Search Console</span>
   <h1>Proof: Page Updates Work</h1>
   <div class="scroll-inner">
@@ -436,7 +575,16 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
         <p class="small-note">More people click when they see us, even in the quieter season.</p>
       </div>
     </div>
-    <div class="card card-solid" style="margin-top:16px;">
+    <div class="card card-outline" style="margin-top:16px;">
+      <span class="tag green">CA and SSC · Sep → Nov</span>
+      <div class="card-grid" style="grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:8px;">
+        <p>"best ca coaching in bangalore"<br><b style="font-size:16px;">22.8 → 8.7</b></p>
+        <p>"ca coaching centres in bangalore"<br><b style="font-size:16px;">11.4 → 5.3</b></p>
+        <p>"ssc coaching centre in bangalore"<br><b style="font-size:16px;">9.8 → 5.8</b></p>
+      </div>
+    </div>
+    <div class="callout good" style="margin-top:16px;"><i class="ti ti-trending-up"></i><div><b>Where we worked, we rose. Where we couldn't keep up, we fell.</b></div></div>
+    <div class="card card-solid" style="margin-top:4px;">
       <h3><i class="ti ti-trending-up"></i>&nbsp; What it takes to reach the top 5</h3>
       <div class="card-grid" style="grid-template-columns: repeat(4, 1fr); gap:12px; margin-top:8px;">
         <p><b>Content:</b> 30+ supporting blog posts per category</p>
@@ -450,7 +598,7 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
 
 <!-- SLIDE: SEMRUSH -->
 <section class="slide">
-  <div class="eyebrow">Section 09 · Tools</div>
+  <div class="eyebrow">Section 12 · Tools</div>
   <h1>Why We Need Semrush</h1>
   <div class="scroll-inner">
     <div style="display:grid; grid-template-columns: 2fr 3fr; gap:24px;">
@@ -458,8 +606,9 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
         <span class="tag red">The problem today</span>
         <ul style="padding-left:18px; margin-top:10px;">
           <li>We find ranking drops <b>weeks late</b>, only when someone manually downloads Search Console reports</li>
-          <li>Example: CET coaching slipped to page 2 in October, and the NEET page dipped for a few days in mid-November. Both were found only by exporting reports afterwards.</li>
+          <li><b>Example:</b> IIT-JEE dropped from page 1 to page 3, and CET to page 4, in <b>October</b>. We only found out in <b>November</b>.</li>
           <li>We can't see where competitors rank for our keywords</li>
+          <li>Our Semrush trial (expired 13 Oct) showed that <b>most of our 33,000 old directory backlinks are low quality</b>. We can't monitor this without the tool.</li>
         </ul>
       </div>
       <div class="card card-outline">
@@ -474,20 +623,20 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
         </div>
       </div>
     </div>
-    <div class="callout good" style="margin-top:16px;"><i class="ti ti-circle-check"></i><div><b>Result:</b> we react in days, not weeks. <b>Cost:</b> [₹__/month]</div></div>
+    <div class="callout good" style="margin-top:16px;"><i class="ti ti-circle-check"></i><div><b>Result:</b> we react in days, not weeks. <b>Cost:</b> ≈ ₹16,000/month</div></div>
   </div>
 </section>
 
-<!-- SLIDE 9: WHERE WE STAND -->
+<!-- SLIDE: WHERE WE STAND -->
 <section class="slide">
-  <div class="eyebrow">Section 10 · Baseline</div>
+  <div class="eyebrow">Section 13 · Baseline</div>
   <h1>Where We Stand Today</h1>
   <div class="scroll-inner">
     <div class="card-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom:16px;">
-      <div class="card card-outline"><span class="src-badge src-gsc" style="margin-bottom:6px;">Search Console</span><h3>Clicks</h3><p style="font-size:18px; color:#fff; font-weight:700;">830 → 670 → 630</p><p>Aug → Sep → Oct</p></div>
-      <div class="card card-outline"><span class="src-badge src-gsc" style="margin-bottom:6px;">Search Console</span><h3>Average position held</h3><p style="font-size:18px; color:#fff; font-weight:700;">8.97 → 9.04</p><p>No drop in rankings</p></div>
-      <div class="card card-outline"><span class="src-badge src-gsc" style="margin-bottom:6px;">Search Console</span><h3>CTR went up</h3><p style="font-size:18px; color:#fff; font-weight:700;">1.11% → 1.37%</p><p>People still click on us</p></div>
-      <div class="card card-outline"><span class="src-badge src-gsc" style="margin-bottom:6px;">Search Console</span><h3>Brand searches fell too</h3><p style="font-size:18px; color:#fff; font-weight:700;">Seasonal</p><p>Lower demand, not lost rankings</p></div>
+      <div class="card card-outline"><span class="src-badge src-gsc" style="margin-bottom:6px;">Search Console</span><h3>Clicks</h3><p style="font-size:17px; color:#fff; font-weight:700;">830 → 670 → 630 → ≈ 590</p><p>Aug → Sep → Oct → Nov (pace)</p></div>
+      <div class="card card-outline"><span class="src-badge src-gsc" style="margin-bottom:6px;">Search Console</span><h3>Average position slipped</h3><p style="font-size:17px; color:#fff; font-weight:700;">8.97 → 9.65</p><p>Aug → Nov</p></div>
+      <div class="card card-outline"><span class="src-badge src-gsc" style="margin-bottom:6px;">Search Console</span><h3>CTR went up</h3><p style="font-size:17px; color:#fff; font-weight:700;">1.11% → 1.37%</p><p>People still click on us when they see us</p></div>
+      <div class="card card-outline"><span class="src-badge src-gsc" style="margin-bottom:6px;">Search Console</span><h3>Part seasonal, part rankings</h3><p style="font-size:17px; color:#fff; font-weight:700;">−44%</p><p>Clicks from new people, even without seasonal exams</p></div>
     </div>
     <div style="display:grid; grid-template-columns: 3fr 1fr; gap:24px;">
       <div class="card card-outline">
@@ -502,27 +651,30 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
         </table>
       </div>
       <div class="card card-solid">
-        <h3><i class="ti ti-ad"></i>&nbsp; Ads in October</h3>
-        <p style="margin-top:8px;"><b>Google</b><br>₹10,611 → 48 leads</p>
-        <p style="margin-top:12px;"><b>Meta</b><br>₹9,984 → 56 leads</p>
+        <h3><i class="ti ti-ad"></i>&nbsp; Ad spend</h3>
+        <p style="margin-top:8px;"><b>Google</b><br>Aug ₹7,925 · Sep ₹8,764<br>Oct ₹10,611 → 48 leads<br>Nov ₹11,202 → 36 leads <span style="opacity:.75;">(1–23 Nov)</span></p>
+        <p style="margin-top:12px;"><b>Meta</b><br>Oct ₹9,984 → 56 leads</p>
       </div>
     </div>
     <div class="card card-outline" style="margin-top:16px;">
-      <h3><i class="ti ti-arrows-left-right" style="color:var(--headline-light);"></i>&nbsp; October vs November</h3>
+      <h3><i class="ti ti-arrows-left-right" style="color:var(--headline-light);"></i>&nbsp; August to November</h3>
       <table class="compact">
-        <tr><th></th><th>October (1 Oct – 3 Nov)</th><th>November (1–20 Nov)</th></tr>
-        <tr><td>Our leads</td><td>158</td><td>116 <span style="color:var(--muted);">(on pace for ~170)</span></td></tr>
-        <tr><td>Google + Organic: reached leads that went well</td><td>56%</td><td><span class="tag green">76%</span></td></tr>
-        <tr><td>FB: reached leads that went well</td><td>52%</td><td><span class="tag red">13%</span></td></tr>
-        <tr><td>Admissions confirmed</td><td>1</td><td><span class="tag green">2</span> <span style="color:var(--muted);">(both from Google + Organic)</span></td></tr>
+        <tr><th></th><th>Aug</th><th>Sep</th><th>Oct (1 Oct – 3 Nov)</th><th>Nov (4–23 Nov)</th></tr>
+        <tr><td>Website leads (Google + Organic)</td><td>125</td><td>47</td><td>92</td><td>63</td></tr>
+        <tr><td>Google Ads leads</td><td>≈ 33</td><td>14</td><td>48</td><td>36</td></tr>
+        <tr style="background:rgba(240,114,158,0.08);"><td><b>Organic leads (estimated)</b></td><td><b>≈ 92</b></td><td><b>≈ 33</b></td><td><b>≈ 44</b></td><td><b>≈ 27</b> <span style="color:var(--muted);">(≈ 40/month pace)</span></td></tr>
+        <tr><td>FB leads</td><td style="color:var(--muted);">no data</td><td style="color:var(--muted);">no data</td><td>56</td><td>50</td></tr>
+        <tr><td>Google + Organic: reached leads that went well</td><td style="color:var(--muted);">—</td><td style="color:var(--muted);">no data</td><td>56%</td><td><span class="tag green">73%</span></td></tr>
+        <tr><td>FB: reached leads that went well</td><td style="color:var(--muted);">—</td><td style="color:var(--muted);">no data</td><td>52%</td><td><span class="tag red">16%</span></td></tr>
+        <tr><td>Admissions confirmed</td><td>2</td><td style="color:var(--muted);">no data</td><td>1</td><td><span class="tag green">2</span> <span style="color:var(--muted);">(both Google + Organic)</span></td></tr>
       </table>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 10: EXPECTED OUTCOMES -->
+<!-- SLIDE: EXPECTED OUTCOMES -->
 <section class="slide">
-  <div class="eyebrow">Section 11</div>
+  <div class="eyebrow">Section 14</div>
   <h1>Expected Outcomes and the Cost of Waiting</h1>
   <div class="scroll-inner">
     <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:16px;">
@@ -548,14 +700,14 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
           <tr><td><b>Ads total</b></td><td></td><td><b>~290–400</b></td></tr>
         </table>
         <p style="font-size:12px; margin-top:8px;">October: ~104 ad leads</p>
-        <p style="margin-top:10px;"><b>With the expanded team:</b> more organic leads from blog posts, backlinks and GBP</p>
+        <p style="margin-top:10px;"><b>With the expanded team:</b> organic leads back toward the August level (≈ 92/month) and beyond, from blog posts, backlinks and GBP</p>
       </div>
       <div class="card card-outline">
         <span class="tag red">If we wait</span>
         <ul style="padding-left:18px; margin-top:10px;">
-          <li>About 37 leads a month stay stuck with sales</li>
+          <li>Leads keep getting stuck with sales</li>
           <li>Ads keep stopping, and weak campaigns stay starved</li>
-          <li>Competitors keep adding content</li>
+          <li>Competitors keep adding content, and our rankings keep slipping</li>
           <li>We miss seasonal peaks like Navodaya admissions</li>
         </ul>
       </div>
@@ -575,9 +727,9 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
   </div>
 </section>
 
-<!-- SLIDE 11: DECISIONS -->
+<!-- SLIDE: DECISIONS -->
 <section class="slide">
-  <div class="eyebrow">Section 12</div>
+  <div class="eyebrow">Section 15</div>
   <h1>Decisions Needed Today</h1>
   <div class="scroll-inner">
     <table>
@@ -609,7 +761,10 @@ tr:hover td{ background: rgba(255,255,255,0.02); }
 <script>
 const slides = document.querySelectorAll('.slide');
 const dotsWrap = document.getElementById('dots');
-const slideTitles = Array.from(slides).map(s=>{
+const menuList = document.getElementById('menuList');
+const menuOverlay = document.getElementById('menuOverlay');
+const slideTitles = Array.from(slides).map((s,i)=>{
+  if(i===0) return 'Cover';
   const h1 = s.querySelector('h1');
   return h1 ? h1.textContent.trim() : '';
 });
@@ -617,9 +772,21 @@ let current = 0;
 slides.forEach((s,i)=>{
   const d = document.createElement('div');
   d.className='dot'+(i===0?' active':'');
+  d.textContent = i+1;
+  d.title = slideTitles[i];
   d.onclick=()=>goTo(i);
   dotsWrap.appendChild(d);
+  const m = document.createElement('div');
+  m.className='menu-item'+(i===0?' active':'');
+  m.innerHTML='<span class="menu-num">'+(i+1)+'</span><span>'+slideTitles[i]+'</span>';
+  m.onclick=()=>{ goTo(i); closeMenu(); };
+  menuList.appendChild(m);
 });
+function openMenu(){ menuOverlay.classList.add('open'); }
+function closeMenu(){ menuOverlay.classList.remove('open'); }
+document.getElementById('menuBtn').onclick=()=>{ menuOverlay.classList.contains('open') ? closeMenu() : openMenu(); };
+document.getElementById('menuClose').onclick=closeMenu;
+menuOverlay.onclick=(e)=>{ if(e.target===menuOverlay) closeMenu(); };
 function updateNavLabels(){
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
@@ -636,9 +803,11 @@ function goTo(i){
   if(i<0||i>=slides.length) return;
   slides[current].classList.remove('active');
   dotsWrap.children[current].classList.remove('active');
+  menuList.children[current].classList.remove('active');
   current=i;
   slides[current].classList.add('active');
   dotsWrap.children[current].classList.add('active');
+  menuList.children[current].classList.add('active');
   document.getElementById('navLabel').textContent = (current+1)+' / '+slides.length;
   slides[current].scrollTop = 0;
   updateNavLabels();
@@ -646,6 +815,8 @@ function goTo(i){
 document.getElementById('prevBtn').onclick=()=>goTo(current-1);
 document.getElementById('nextBtn').onclick=()=>goTo(current+1);
 document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closeMenu();
+  if(menuOverlay.classList.contains('open')) return;
   if(e.key==='ArrowRight') goTo(current+1);
   if(e.key==='ArrowLeft') goTo(current-1);
 });
